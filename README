@@ -1,3 +1,28 @@
+在Web数据采集输出格式中XLS（Excel）是一种很常见的格式。它具有灵活、通用功能（能够方便地导入各种数据库 例如，Access、MySQL），借助Excel的强大功能可以方便地对数据进行二次统计和处理。并且它对UTF-8字符编码支持较好，用Excel查看不会出现乱码（注：Excel查看UTF-8编码的CSV文件会乱码）。
+
+XLSWriter是由鲲鹏数据的技术人员在xlwt库的基础上进行二次封装而来，它的目的是为了写XLS文件的操作更加简单。
+
+示例代码：
+
+from XLSWriter import XLSWriter
+ 
+xlswriter = XLSWriter(u'陕西.xls')
+xlswriter.writerow(['姓名', '年龄', '电话', 'QQ'], sheet_name=u'基本信息')
+xlswriter.writerow(['张三', '30', '13512345678', '123456789'], sheet_name=u'基本信息')
+     
+xlswriter.writerow(['学校', '获得学位', '取得学位时间'], sheet_name=u'学习经历')
+xlswriter.writerow(['西安电子科技大学', '学士', '2009'], sheet_name=u'学习经历')
+xlswriter.writerow(['西安电子科技大学', '硕士', '2012'], sheet_name=u'学习经历')
+     
+xlswriter.writerow(['王五', '30', '13512345678', '123456789'], sheet_name=u'基本信息')
+# don't forget to save data to disk
+xlswriter.save()
+它具有以下特性：
+
+1. 支持中文。
+2. 支持多Sheet写入操作（通过指定sheet_name）。
+3. 具有Sheet自动分表功能：32位系统下，Excel的最大可读行数是65535，为了避免数据溢出，XLSWiter在一个Sheet内行数达到65535后自动进行分表（创建Sheet2、3、4...）。
+
 This module uses the libraries xlrd, xlwt and xlutils
 from http://www.python-excel.org in order to handle
 XLS files in an easy way.
